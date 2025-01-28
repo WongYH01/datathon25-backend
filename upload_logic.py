@@ -23,7 +23,6 @@ import requests
 import json
 
 import re
-import json
 
 load_dotenv()
 
@@ -53,7 +52,7 @@ def call_ollama_api(pdf_to_text):
         print(f"Error {response.status_code}: {response.text}")
     return False
 
-
+# Takes like 1 min
 def call_openai(pdf_file):
     extracted_text = process_pdf(pdf_file)
     entity_list = get_entities(extracted_text)
@@ -114,6 +113,22 @@ def call_openai(pdf_file):
             "content": (
                 "Explore all meaningful interactions between entities, including direct and indirect relationships. Ensure no meaningful interaction is overlooked."
             )
+        },
+        {
+            "role": "system",
+            "content": ("Ensure relationships are UNIQUE. Do not repeat the same relationship multiple times between different entities. Each relationship should provide new and meaningful information.")
+        },
+        {
+            "role": "system",
+            "content": (f"Here is the list of entities you are allowed to use: {entity_list}. You MUST NOT use any entities outside this list. If an entity is not in this list, exclude it entirely.")
+        },
+        {
+            "role": "system",
+            "content": ("Provide no more than 25 UNIQUE and MEANINGFUL relationships in total. Remove any duplicates, and ensure each relationship adds value.")
+        },
+        {
+            "role": "system",
+            "content": (f"Refer to {schema} when sending the results. Ensure all results conform to this schema for consistency and clarity.")
         }
     ]
 
@@ -129,7 +144,14 @@ def call_openai(pdf_file):
             "content": (
                 "I will explore both explicit and nuanced relationships, including actions, critiques, roles, and comparisons. Relationships will be detailed and varied, reflecting the richness of the text."
             )
-        }
+        },
+        {
+            "role": "assistant",
+            "content": (
+                "I will ensure that all relationships are concise, no longer than three words, and provide significant meaning. "
+                "I will avoid verbose or redundant descriptions."
+            )
+        },
     ]
 
     openai_key = os.getenv("OPENAPI_KEY")
@@ -147,9 +169,11 @@ def call_openai(pdf_file):
         ],
         temperature = 0.1
     )
-
-
-    return None
+    if(completion is None):
+        return False
+    result = completion.choices[0].message.content
+    result = json.loads(result)["relationships"]
+    return result
     
 def get_entities(extracted_text):
     nlp = spacy.load("en_core_web_trf")  # Transformer-based NER model
@@ -205,20 +229,9 @@ def extract_json(text):
             return None
     return None
 
-openai_key = os.getenv("OPENAPI_KEY")
-print(f"OPENAI API KEY: {openai_key}")
-
-# extracted_txt = process_pdf("D:/SMU/Y2S2/Datathon 2025/Dataset/pdfs/2.pdf")
-# print(extracted_txt)
-# res = call_ollama_api(extracted_txt)
-# print(res)
-# entity_list = get_entities(extracted_txt)
-# print(entity_list)
-
-
-    
-
+# pdf_name, date&time, json result, status: (running, completed, failed)
 # function to create the entry 
 
 
+# param to get the status
 # function to update the entry
