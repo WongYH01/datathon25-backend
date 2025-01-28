@@ -6,8 +6,7 @@ app = Flask(__name__)
 @app.route('/upload')
 def upload():
     # iterate thru list of files
-        # function to pre-process the file to text
-        # function to run the ai
+        # function to pre-process then run the ai
         # while its waiting for the ai function
             # function to create entry into MongoDB
         # After done another function to add the json inside
