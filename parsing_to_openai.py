@@ -229,9 +229,3 @@ def extract_json(text):
             return None
     return None
 
-# pdf_name, date&time, json result, status: (running, completed, failed)
-# function to create the entry 
-
-
-# param to get the status
-# function to update the entry
