@@ -21,6 +21,8 @@ def upload():
         
         file_list = request.files.getlist("file[]")
         doc_ids = []
+        
+        # REPLACE WITH QUEUE HERE
         for file in file_list:
             file_name = file.filename
 
@@ -34,6 +36,7 @@ def upload():
                     mgd.updateDocument(relationships,doc_id,"Confirmed")
                 else:
                     mgd.updateDocument("",doc_id,"Cancelled")
+        # END OF REPLACEMENT
 
         return jsonify({"message": "Processing completed", "document_ids": doc_ids}), 200
 
@@ -55,7 +58,8 @@ def page():
 # Takes in page number and run the logic {if 1 is first 10, 2 is next 10}, returns that 10 of uid, date and name
 @app.route('/list')
 def lister():
-
+    data = request.get_json()
+    pageNum = data["pageNum"]
     return None
 
 # Takes in the uid and returns the json of single entry
