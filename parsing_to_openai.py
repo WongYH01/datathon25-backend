@@ -275,3 +275,17 @@ def process_pdf(file_storage):
         print(f"Error processing PDF: {e}")
         return None
 
+# idea def to mask entity, taakes in the list of entity dicts
+    # empty decoder dict
+    # empty set dict
+    # iterate thru list
+        # get the type
+        # check if in set dict
+            # get the num +=1
+            # set the dict to num
+        # else
+            # set the dict = 0
+        # set a string in format: TYPE_NUM
+        # add to decoder dictionary
+        # 
+
