@@ -60,7 +60,13 @@ def page():
 def lister():
     data = request.get_json()
     pageNum = data["pageNum"]
-    return None
+
+    try:
+        result_list = mgd.get_documents_with_page(pageNum)
+        return result_list
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Takes in the uid and returns the json of single entry
 @app.route('/get', methods=['GET'])

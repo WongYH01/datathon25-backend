@@ -66,6 +66,24 @@ def getJsonWithId(object_id):
         print(f"Error in updateDocument: {e}")
         return None
 
+def get_documents_with_page(pageNum):
+    try:
+        skip_num = (pageNum-1)*10
+        result_list = []
+        documents_in_page = collection.find().limit(10).skip(skip_num)
+        for document in documents_in_page:
+            document["_id"]=str(document["_id"])
+            result_list.append(document)
+        return result_list
+    except Exception as e:
+        print(f"Error in get_documents_with_page: {e}")
+        return None
+
+# yuur = get_documents_with_page(2)
+# print(yuur)
+# for y in yuur:
+#     print(y["_id"])
+
 
 # updateDocument(sample_list,"679a01f484a2603e7058b1db","Confirmed")
 
