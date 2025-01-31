@@ -285,7 +285,10 @@ def process_pdf(file_storage):
             # set the dict to num
         # else
             # set the dict = 0
-        # set a string in format: TYPE_NUM
-        # add to decoder dictionary
-        # 
+        # found = true
+        # while found
+            # get the index with substring
+            # get the length also
+            # replace the extracted text with the index with the masked on
+            # try to get the substring agane and get the res, do if/else if dont throw boolean
 

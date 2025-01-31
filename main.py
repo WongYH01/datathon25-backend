@@ -38,7 +38,7 @@ def upload():
                     mgd.updateDocument("",doc_id,"Cancelled")
         # END OF REPLACEMENT
 
-        return jsonify({"message": "Processing completed", "document_ids": doc_ids}), 200
+        return jsonify({"message": "Processing completed"}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
