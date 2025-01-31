@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 import mongodb_actions as mgd
 import parsing_to_openai as oai
 import networkx as nx
@@ -8,6 +9,7 @@ import json
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # takes in an array of files and runs all the logic to get the json output and store in MongoDB{pdf_name, date&time, json result, status(running, completed, failed)}, create db entry THEN update the same entry with the json
 @app.route('/upload', methods=['POST'])

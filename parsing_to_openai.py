@@ -9,6 +9,7 @@ from pdfminer.converter import PDFPageAggregator
 from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFParser
 from pdfminer.layout import LTTextBoxHorizontal
+from flask_cors import CORS
 
 import spacy
 import spacy_transformers
