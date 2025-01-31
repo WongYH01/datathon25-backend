@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 
 from flask import request
+from flask_cors import CORS
 
 from datetime import datetime
 from bson.objectid import ObjectId
